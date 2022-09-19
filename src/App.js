@@ -42,33 +42,36 @@ function App() {
               
         const clientRequest = client.createRequest(clientInputs)
         const serializedClientRequest = clientRequest.serializeBinary()
-          axios.post('http://localhost:8081/movies', {
-              data: Array.from(serializedClientRequest)
-          },{
-            headers:{
-              'Access-Control-Allow-Origin': "*",
-              'Access-Control-Allow-Credentials':true
-            }
-          }).then((serverResponse) => {
 
-            const serializedServerResponse = Uint8Array.from(serverResponse.data.serializedServerResponse)
-            const serializedServerSetup = Uint8Array.from(serverResponse.data.serializedServerSetup)
+        const url = "https://profilematcherapis.herokuapp.com/movies"
+        const localUrl = "http://localhost:8081/movies"
+        axios.post(url, {
+            data: Array.from(serializedClientRequest)
+        },{
+          headers:{
+            'Access-Control-Allow-Origin': "*",
+            'Access-Control-Allow-Credentials':true
+          }
+        }).then((serverResponse) => {
 
-            const deserializedServerResponse = psi.response.deserializeBinary(
-              serializedServerResponse
-            )
+          const serializedServerResponse = Uint8Array.from(serverResponse.data.serializedServerResponse)
+          const serializedServerSetup = Uint8Array.from(serverResponse.data.serializedServerSetup)
 
-            // Deserialize the server setup
-            const deserializedServerSetup = psi.serverSetup.deserializeBinary(
-              serializedServerSetup
-            )
-            const intersectionSize = client.getIntersectionSize(
-              deserializedServerSetup,
-              deserializedServerResponse
-            )
-            setMatch(intersectionSize)
-            // alert('Intersection size is:', intersectionSize)
-            handleShow()
+          const deserializedServerResponse = psi.response.deserializeBinary(
+            serializedServerResponse
+          )
+
+          // Deserialize the server setup
+          const deserializedServerSetup = psi.serverSetup.deserializeBinary(
+            serializedServerSetup
+          )
+          const intersectionSize = client.getIntersectionSize(
+            deserializedServerSetup,
+            deserializedServerResponse
+          )
+          setMatch(intersectionSize)
+          // alert('Intersection size is:', intersectionSize)
+          handleShow()
       })
 
     })()
