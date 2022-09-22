@@ -17,6 +17,9 @@ function Maps() {
  const [markers, setMarker] = useState([{lat: -34.92866, lng: 138.59863}])
  const center = useMemo(() => ({lat: -34.92866, lng: 138.59863}), []) 
  return (
+  !isLoaded ? <div>
+    loading...
+  </div> :
   <div className="App" style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', backgroundColor: "#282c34"}}>
     <Button onClick={() => {navigate('/')}}>Back</Button>
     {isLoaded ? "TRUE": "FALSE"}
