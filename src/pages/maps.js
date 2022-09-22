@@ -18,10 +18,12 @@ function Maps() {
  const center = useMemo(() => ({lat: -34.92866, lng: 138.59863}), []) 
 
  const onMapClick = (location) =>{
-  setMarker([...markers, {
-    lat: location.latLng.lat(),
-    lng: location.latLng.lng()
-  }])
+  if (markers.length < 10) {
+    setMarker([...markers, {
+      lat: location.latLng.lat(),
+      lng: location.latLng.lng()
+    }])
+  }
  }
  return (
   !isLoaded ? <div>
