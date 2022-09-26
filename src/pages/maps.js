@@ -15,7 +15,7 @@ import axios from 'axios';
 import geohash from "ngeohash";
 
 // const apiKey = "AIzaSyCB3uMp02Em8tD5xPy-BUfXd6huQt8dxLw"
-const GEO_HASH_LENGTH = 6
+const GEO_HASH_LENGTH = 8
 
 function Maps() {
  const { isLoaded } = useLoadScript({googleMapsApikey: process.env.MAP_API_KEYS})
@@ -32,7 +32,7 @@ const revealIntersection = false; // Allows to reveal the intersection (true)
 
 
  const hashPoints = () => {
-  return [...new Set(markers.map(x => geohash(x.lat, x.lng, GEO_HASH_LENGTH)))]
+  return [...new Set(markers.map(x => geohash.encode(x.lat, x.lng, GEO_HASH_LENGTH)))]
  } 
 
  const submit = () => {
@@ -94,26 +94,28 @@ const revealIntersection = false; // Allows to reveal the intersection (true)
     loading...
   </div> :
   <div className="App" style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', backgroundColor: "#282c34", flexDirection:'row', flexWrap:'wrap'}}>
-    <Modal show={show} onHide={setShow(false)} backdrop="static">
+    <Modal show={show} onHide={() => setShow(false)} backdrop="static">
       <Modal.Header closeButton>
         <Modal.Title>Match location</Modal.Title>
       </Modal.Header>
       <Modal.Body>{`Woohoo, you have ${match} locations match!`}</Modal.Body>
     </Modal>
-    <Button onClick={() => {navigate('/')}}>Back</Button>
-    {isLoaded ? "TRUE": "FALSE"}
-    <GoogleMap zoom={12} center={center} mapContainerStyle={{width: '60vw', height: '60vh'}} onClick={onMapClick}>
-      {/* {true && <MarkerF position={markers[0]}></MarkerF>} */}
-      {
-        markers.map((x,i) => {
-          console.log(x)
-          return <MarkerF position={x} key={`marker-${i}`}></MarkerF>
-        })
-      }
-    </GoogleMap>
-    <Button onClick={() => {
-      console.log(hashPoints)
-    }}>Submit</Button>
+    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection:'column', flexWrap:'wrap'}}>
+      <Button type="button" onClick={() => {navigate('/')}}>Back</Button>
+      <GoogleMap zoom={12} center={center} mapContainerStyle={{width: '60vw', height: '60vh', margin: 10}} onClick={onMapClick}>
+        {/* {true && <MarkerF position={markers[0]}></MarkerF>} */}
+        {
+          markers.map((x,i) => {
+            return <MarkerF position={x} key={`marker-${i}`}></MarkerF>
+          })
+        }
+      </GoogleMap>
+      <Button type="button" onClick={() => {
+        submit()
+      }}>Submit</Button>
+
+    </div>
+
     {/* { markers.map(x => `${x.lat}+${x.lng}`)} */}
   </div>
  );
