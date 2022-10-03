@@ -1,22 +1,40 @@
 import { useState , useEffect} from "react";
 import { hasSession, VaultAccount } from "@verida/account-web-vault";
 import { Network, EnvironmentType, Context } from "@verida/client-ts";
+// import { AutoAccount } from '@verida/account-node';
 
 function VeridaLogin() {
   const [veridaContext, setVeridaContext] = useState<Context | undefined>(undefined);
   const [did, setDid] = useState<string>("");
   const CONTEXT_NAME = "Matcher_App"
-  
+  const VERIDA_TESTNET_DEFAULT_SERVER = 'https://db.testnet.verida.io:5002/'
+
+
   const login = async function () {
-    console.log("click")
-    // Create a VaultAccount. This takes a VaultAccountConfig parameter.
-    // See links below to docs on these
+    console.log("checkpoint 1")
+
     const account = new VaultAccount({
         request: {
             logoUrl: "https://developers.verida.io/img/tutorial_login_request_logo_170x170.png",
             openUrl: window.location.href
         },
     });
+
+    // const account = new AutoAccount({
+    //     defaultDatabaseServer: {
+    //         type: 'VeridaDatabase',
+    //         endpointUri: VERIDA_TESTNET_DEFAULT_SERVER
+    //     },
+    //     defaultMessageServer: {
+    //         type: 'VeridaMessage',
+    //         endpointUri: VERIDA_TESTNET_DEFAULT_SERVER
+    //     }
+    // }, {
+    //     environment: EnvironmentType.TESTNET,
+    //     privateKey: '0x...'
+    // });
+
+    console.log("checkpoint 2")
 
     const context = await Network.connect({
         client: {
@@ -27,6 +45,8 @@ function VeridaLogin() {
             name: CONTEXT_NAME,
         }
     }) 
+
+    console.log("checkpoint 3")
 
     context ? setVeridaContext(context) : (() => {})()
 
