@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Movies from './pages/movies';
 import Home from './pages/home';
 import Maps from './pages/maps';
+import VeridaLogin from './pages/veridaLogin';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="movies" element={<Movies />} />
           <Route path="maps" element={<Maps />} />
+          <Route path="loginVerida" element={<VeridaLogin />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -13,6 +13,7 @@ const navigate = useNavigate();
     <ButtonGroup>
       <Button onClick={() => {navigate('/movies')}}>Movies</Button>
       <Button onClick={() => {navigate('/maps')}} >Maps</Button>
+      <Button onClick={() => {navigate('/loginVerida')}} >Login Verida</Button>
     </ButtonGroup>
   </div>
  );
