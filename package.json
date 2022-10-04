@@ -6,23 +6,25 @@
 		"node": "^14.0.0"
 	},
 	"dependencies": {
+		"@openmined/psi.js": "^0.3.5",
+		"@react-google-maps/api": "^2.12.2",
 		"@testing-library/jest-dom": "^5.11.4",
 		"@testing-library/react": "^11.1.0",
 		"@testing-library/user-event": "^12.1.10",
 		"@verida/account-web-vault": "^1.1.12",
 		"@verida/client-ts": "^1.1.15",
+		"axios": "^0.27.2",
+		"bootstrap": "^5.2.1",
+		"ngeohash": "^0.6.3",
 		"react": "^17.0.2",
+		"react-bootstrap": "^2.5.0",
 		"react-copy-to-clipboard": "^5.1.0",
 		"react-dom": "^17.0.2",
 		"react-loader-spinner": "^5.1.0",
 		"react-router-dom": "6",
 		"react-scripts": "4.0.3",
 		"react-toastify": "^7.0.4",
-		"web-vitals": "^1.0.1",
-		"@openmined/psi.js": "^0.3.5",
-		"@react-google-maps/api": "^2.12.2",
-		"axios": "^0.27.2",
-    "bootstrap": "^5.2.1"
+		"web-vitals": "^1.0.1"
 	},
 	"license": "ISC",
 	"scripts": {
