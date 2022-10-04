@@ -1,0 +1,60 @@
+{
+  "name": "lens_protocal_apis",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@openmined/psi.js": "^0.3.5",
+    "@react-google-maps/api": "^2.12.2",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/node": "^18.7.23",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
+    "@verida/account-web-vault": "^1.1.12",
+    "@verida/client-ts": "^1.1.15",
+    "axios": "^0.27.2",
+    "bootstrap": "^5.2.1",
+    "express": "^4.18.1",
+    "gpxparser": "^3.0.8",
+    "ngeohash": "^0.6.3",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.5.0",
+    "react-dom": "^18.2.0",
+    "react-google-maps": "^9.4.5",
+    "react-router-dom": "^6.4.1",
+    "react-scripts": "4.0.2",
+    "typescript": "^4.8.4",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "start:dev": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "postinstall":"tsc"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "bootstrap": "^5.2.1",
+    "react-bootstrap": "^2.5.0"
+  }
+}

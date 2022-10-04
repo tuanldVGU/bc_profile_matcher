@@ -1,0 +1,224 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+
+@font-face {
+    font-family: 'Sora';
+    src: local('Sora'), url(../fonts/Sora-Regular.ttf) format('truetype')
+}
+
+
+body {
+    font-family: 'Sora', sans-serif;
+}
+
+
+
+.connect-svg {
+    height: 4rem;
+}
+
+
+.login-container {
+    text-align: center;
+    width: 744px;
+    display: flex;
+    justify-content: center;
+    flex-flow: column nowrap;
+    align-items: center;
+    background: #ffffff;
+    padding: 0 1.5rem;
+    margin: auto;
+    box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.04);
+    border-radius: 8px;
+    margin: 8rem auto;
+}
+
+@media (max-width: 768px) {
+    .login-container {
+        width: 83%;
+        margin: 8rem auto;
+    }
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.connect>* {
+    margin: 0.7rem 0;
+}
+
+.connect h3 {
+    font-weight: 600;
+    font-size: 2.5rem;
+}
+
+.connect p {
+    word-break: inherit;
+}
+
+.connect button {
+    background: transparent;
+    outline: none;
+    border: none;
+}
+
+.connect {
+    padding: 1rem 0;
+    height: 20rem;
+}
+
+.loader {
+    padding: 1rem 0;
+    height: 20rem;
+}
+
+
+
+.user-menu {
+    font-family: "Sora", sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 3rem;
+    box-shadow: 0px 3px 4px #bbbbbb;
+    margin-bottom: 2rem;
+    padding: 0.5rem 1rem;
+}
+
+
+.vda-menu {
+    font-family: "Sora";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-section {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    outline: none;
+    border: none;
+}
+
+.login-section>* {
+    margin: 0 0.4rem;
+}
+
+.vda-menu-widget {
+    position: relative;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vda-menu-widget-title {
+    margin: 0 1.5rem;
+    padding: auto;
+}
+
+.vda-dropdown-profile {
+    margin: 0 0 0 1.4rem;
+}
+
+.vda-dropdown-profile span:nth-child(1) {
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    color: #000000;
+}
+
+.vda-dropdown-profile span:nth-child(2) {
+    display: block;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    text-align: center;
+    color: #808080;
+}
+
+.vda-dropdown {
+    display: flex;
+    position: relative;
+    z-index: 2;
+}
+
+.vda-dropdown img {
+    height: 2.5rem;
+    width: 2.5rem;
+}
+
+.vda-dropdown span {
+    margin: 0.7rem 1rem 0 0;
+}
+
+.vda-dropdown span a {
+    color: black;
+    margin-left: -0.2rem;
+}
+
+.vda-dropdown-top {
+    background: #3333;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.vda-dropdown-top img {
+    border-radius: 50%;
+}
+
+.vda-dropdown-top-active img {
+    border-radius: 50%;
+}
+
+.vda-dropdown-logout {
+    position: absolute;
+    top: 3.6rem;
+    right: 0;
+    width: 20rem;
+    background: #ffffff;
+    border: 1px solid #ededed;
+    box-shadow: 0px 24px 40px rgba(6, 5, 32, 0.08);
+    border-radius: 8px;
+}
+
+.vda-dropdown-logout div {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: 9px 16px;
+    height: 40px;
+}
+
+.vda-dropdown-logout div img {
+    height: 1.3rem;
+    width: 1.3rem;
+    margin: 0 1.2rem -0.5rem 0;
+}
+
+.vda-dropdown-logout div:hover {
+    background: rgba(12, 11, 11, 0.04);
+    cursor: pointer;
+}
+
+.vda-dropdown-logout div:nth-child(2) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.vda-dropdown-logout-button {
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
