@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import { ButtonGroup, Button, Modal } from 'react-bootstrap';
 import axios from 'axios';
 import PSI from '@openmined/psi.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from "react-router-dom";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 
 
 function Movie() {
@@ -46,8 +48,8 @@ function Movie() {
         const clientRequest = client.createRequest(clientInputs)
         const serializedClientRequest = clientRequest.serializeBinary()
 
-        const url = "https://profilematcherapis.herokuapp.com/movies"
-        const localUrl = "http://localhost:8081/movies"
+        // const url = "https://profilematcherapis.herokuapp.com/movies"
+        const url = process.env.APP_MOVIES_API_URL
         axios.post(url, {
             data: Array.from(serializedClientRequest)
         },{
@@ -81,6 +83,8 @@ function Movie() {
 
   }
 
+  const disabledBtn = () => selected.length < 10
+
   return (
     <div className="App">
 
@@ -91,10 +95,9 @@ function Movie() {
         <Modal.Body>{`Woohoo, you have ${match} movies!`}</Modal.Body>
       </Modal>
       <section className="App-header">
-        <Button onClick={() => {navigate('/')}}>Back</Button>
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
         <p>
-          What is your favourite movies?
+          What is your favourite Marvel movies?
         </p>
         <div
         style= {{
@@ -102,7 +105,10 @@ function Movie() {
             paddingTop: 0,
             display: 'flex',
             flexDirection: 'row',
-            flexWrap: 'wrap'
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginBottom: 40
           }}>
             {
               movies.map((x,i) => <Button key={`test-${i}`}  onClick={() =>uniqueInsert(x)}  style= {{
@@ -127,9 +133,13 @@ function Movie() {
               </Button>)
             }
         </div> 
-        {selected.length}
 
-        <Button type="button" onClick={() => submit()} style={{width: "100%"}}>Submit</Button>
+        <ButtonGroup style={{position: "absolute", left: 0, bottom: 30, right: 0, marginLeft: '45%', marginRight: '45%'}}>
+          <Button onClick={() => {navigate('/')}}><FontAwesomeIcon icon={faChevronLeft}/></Button>
+          <Button onClick={() => {submit()}} disabled={disabledBtn()}>Submit</Button>
+        </ButtonGroup>
+
+        {/* <Button type="button" onClick={() => submit()} style={{width: "100%"}}>Submit</Button> */}
 
       </section>
       

@@ -5,7 +5,7 @@ import VeridaLogo from "../assets/images/verida_logo.svg";
 import { useNavigate } from "react-router-dom";
 
 const BaseHeader = () => {
-	const [isOpened, setIsOpened] = useState(true);
+	const [isOpened, setIsOpened] = useState(false);
 	const [isCopied, setIsCopy] = useState({ copied: false });
 	const [profile, setProfile] = useState({});
 
@@ -64,7 +64,6 @@ const BaseHeader = () => {
 						</div>
 						<div className='vda-dropdown-profile'>
 							<span>{profile.name}</span>
-							<span>{truncateDID(profile.did)}</span>
 						</div>
 						{isOpened && (
 							<div className='vda-dropdown-logout'>

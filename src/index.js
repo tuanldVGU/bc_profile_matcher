@@ -7,6 +7,11 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import "./assets/fonts/Sora-Regular.ttf"
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faChevronLeft)
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
