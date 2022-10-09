@@ -5,6 +5,8 @@ import { ReactComponent as VeridaLogo } from "../assets/images/verida_logo.svg";
 import useAuth from "../hooks/useAuth";
 import VeridaClient from "../api/veridaClient";
 
+const { REACT_APP_LOGO_URL, REACT_APP_CONTEXT_NAME, REACT_APP_VERIDA_VAULT } = process.env;
+
 const Connect = () => {
 	const { connectVault, isLoading } = useAuth();
 
@@ -27,6 +29,7 @@ const Connect = () => {
 					<React.Fragment>
 						<VeridaLogo className='connect-svg' alt='verida-logo' />
 						<h3>React Starter Demo</h3>
+						<p>{REACT_APP_LOGO_URL}, {REACT_APP_CONTEXT_NAME}, {REACT_APP_VERIDA_VAULT}</p>
 						<p>Use the button below to connect with Verida Vault</p>
 						<button onClick={connectVault}>
 							<img src={VeridaLoginBtn} alt='verida-btn' />
