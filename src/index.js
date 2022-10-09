@@ -8,9 +8,12 @@ import { BrowserRouter } from 'react-router-dom';
 import "./assets/fonts/Sora-Regular.ttf"
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft,  faTicket, faMapLocationDot, faUserSecret } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faChevronLeft)
+library.add(faTicket)
+library.add(faMapLocationDot)
+library.add(faUserSecret)
 
 ReactDOM.render(
   <React.StrictMode>

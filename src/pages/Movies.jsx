@@ -8,8 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 
-
-function Movie() {
+const { REACT_APP_MOVIES_API_URL } = process.env;
+function Movie(props) {
 
   const navigate = useNavigate();
 
@@ -24,7 +24,8 @@ function Movie() {
 
   const movies = ["Iron Man (2008)", "The Incredible Hulk (2008)", "Iron Man 2 (2010)", "Thor (2011)", "Captain America: The First Avenger (2011)", "The Avengers (2012)", "Iron Man 3 (2013)", "Thor: The Dark World (2013)", "Captain America: The Winter Soldier (2014)", "Guardians of the Galaxy (2014)", "Avengers: Age of Ultron (2015)", "Ant-Man (2015)", "Captain America: Civil War (2016)", "Doctor Strange (2016)", "Guardians of the Galaxy Vol. 2 (2017)","Spider-Man: Homecoming (2017)", "Thor: Ragnarok (2017)", " Black Panther (2018)", "Avengers: Infinity War (2018)", "Ant-Man and the Wasp (2018)", "Captain Marvel (2019)", "Avengers: Endgame (2019)", "Spider-Man: Far from Home (2019)", "Guardians of the Galaxy Vol. 3 (2023)"]
 
-  const [selected, setSelected] = useState([])
+  // const [selected, setSelected] = useState([])
+  const {selected, setSelected} = props
 
   const isSelected = (str) => selected.includes(str)
 
@@ -49,18 +50,17 @@ function Movie() {
         const serializedClientRequest = clientRequest.serializeBinary()
 
         // const url = "https://profilematcherapis.herokuapp.com/movies"
-        const url = process.env.APP_MOVIES_API_URL
-        axios.post(url, {
+        
+        // const url = "http://localhost:8081/movies"
+        axios.post(REACT_APP_MOVIES_API_URL, {
             data: Array.from(serializedClientRequest)
-        },{
-          headers:{
-            'Access-Control-Allow-Origin': "*",
-            'Access-Control-Allow-Credentials':true
-          }
         }).then((serverResponse) => {
 
           const serializedServerResponse = Uint8Array.from(serverResponse.data.serializedServerResponse)
           const serializedServerSetup = Uint8Array.from(serverResponse.data.serializedServerSetup)
+
+          console.log(serializedServerResponse)
+          console.log(serializedServerSetup)
 
           const deserializedServerResponse = psi.response.deserializeBinary(
             serializedServerResponse

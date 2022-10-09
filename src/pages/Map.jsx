@@ -17,11 +17,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 
 const GEO_HASH_LENGTH = 8
+const { REACT_APP_MAPS_API_URL } = process.env;
 
-function Map() {
- const { isLoaded, loadError } = useLoadScript({googleMapsApiKey: process.env.MAP_API_KEYS})
+function Map(props) {
+ const { isLoaded, loadError } = useLoadScript({googleMapsApiKey: process.env.REACT_APP_MAP_API_KEYS})
  const navigate = useNavigate();
- const [markers, setMarker] = useState([{lat: -34.92866, lng: 138.59863}])
+ const {markers, setMarker} = props
+//  const [markers, setMarker] = useState([{lat: -34.92866, lng: 138.59863}])
  const center = useMemo(() => ({lat: -34.92866, lng: 138.59863}), []) 
  
  const [show, setShow] = useState(false);
@@ -33,7 +35,8 @@ const revealIntersection = false; // Allows to reveal the intersection (true)
 
 
  const hashPoints = () => {
-  return [...new Set(markers.map(x => geohash(x.lat, x.lng, GEO_HASH_LENGTH)))]
+  const hashMarkers = markers.map(x => geohash.encode(x.lat, x.lng, GEO_HASH_LENGTH))
+  return [...new Set(hashMarkers)]
  } 
 
  const submit = () => {
@@ -48,8 +51,7 @@ const revealIntersection = false; // Allows to reveal the intersection (true)
       const serializedClientRequest = clientRequest.serializeBinary()
 
       // const url = "https://profilematcherapis.herokuapp.com/maps"
-      const localUrl = "http://localhost:3000/map"
-      axios.post(localUrl, {
+      axios.post(REACT_APP_MAPS_API_URL, {
           data: Array.from(serializedClientRequest)
       },{
         headers:{

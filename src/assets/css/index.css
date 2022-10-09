@@ -248,3 +248,50 @@ body {
     font-size: calc(10px + 2vmin);
     color: white;
   }
+
+.profile-item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #fff;
+    width: 200px;
+    height: 300px;
+    margin: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.profile-item:hover{
+    border: 3px solid #fff;
+    border-radius: 25px;
+}
+
+.profile-item h1{
+    font-size: 75px;
+}
+
+.user-block{
+    margin: 10px;
+    padding: 10px;
+    border: 2px solid;
+    border-radius: 5px;
+    display: 'flex';
+    flex-direction:'row';
+    color: #fff;
+}
+
+.user-block:hover {
+    border-color: #01949A;
+}
+
+.user-selected{
+    border-color: #DB1F48 !important;
+}
+
+.user-box {
+    border: 2px solid;
+    border-radius: 25px;
+    padding: 10px;
+    margin: 5px;
+}
