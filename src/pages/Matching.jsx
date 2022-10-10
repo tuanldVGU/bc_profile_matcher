@@ -23,7 +23,7 @@ const Matching = (props) => {
   
 
   const connect = () => {
-    const url = "http://localhost:8081"
+    const url = process.env.REACT_APP_MATCHING_API
     const socket = io(url);
     socket.on("connected", data => {
       console.log(data)
