@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { ButtonGroup, Button, Modal } from 'react-bootstrap';
 import axios from 'axios';
 import PSI from '@openmined/psi.js';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from "react-router-dom";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

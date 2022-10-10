@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, ButtonGroup, Modal } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from "react-router-dom";
 
 
