@@ -5,7 +5,7 @@ import "./assets/css/index.css"
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import "./assets/fonts/Sora-Regular.ttf"
+import "./assets/fonts/Sora-Regular.ttf";
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faChevronLeft,  faTicket, faMapLocationDot, faUserSecret } from '@fortawesome/free-solid-svg-icons'
