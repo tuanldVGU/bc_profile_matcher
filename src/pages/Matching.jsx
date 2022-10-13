@@ -4,7 +4,7 @@ import { ButtonGroup, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTicket, faMapLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { io } from "socket.io-client";
 
 import GetUserDetail  from './GetUserDetail'
@@ -51,24 +51,31 @@ const Matching = (props) => {
     setMatcher({ isGameStarted: data.status, roomId: data.room_id });
   };
 
+  const goBack = () => {
+    navigate('/')
+  }
+
 	return (
-		<div>
+		<div >
 			<BaseHeader />
-			<div className="App" style={{display: 'flex', paddingTop: 20, paddingLeft: 10, height: '100vh', backgroundColor: "#282c34", flexDirection: 'column'}}>
-      <p style={{color: "#fff"}}>Your connection id: {matcher.socket !== null ? matcher.socket.id: "..."}</p>
-      <p style={{color: "#fff"}}>Welcome: {matcher.name}</p>
-      {
-          !matcher.isGameStarted ? !matcher.isRegistered ? <div>
-            {matcher.socket
-              ? <GetUserDetail socket={matcher.socket} registrationConfirmation={registrationConfirmation} />
-              : <p style={{color: "#fff"}}>Loading...</p>}
-          </div> :
-            // <div>ShowUsers</div>:
-            <ShowUsers socket={matcher.socket} gameStartConfirmation={gameStartConfirmation} movies={props.movies} locations={props.locations} name={matcher.name}/> :
-            <div>Let's match</div>
-            // <GamePlay socket={this..socket} gameId={this.state.gameId} gameData={this.state.gameData} opponentLeft={this.opponentLeft} />
-      }
-			</div>	
+			<div className="App" style={{display: 'flex', padding: "20px 20px", height: '100vh', backgroundColor: "#282c34", flexDirection: 'column'}}>
+        <p style={{color: "#fff"}}>Your connection id: {matcher.socket !== null ? matcher.socket.id: "..."}</p>
+        {!matcher.socket && <p style={{color: "#fff"}}>Welcome: {matcher.name}</p>}
+        {
+            !matcher.isGameStarted ? !matcher.isRegistered ? <div>
+              {matcher.socket
+                ? <GetUserDetail socket={matcher.socket} registrationConfirmation={registrationConfirmation} />
+                : <p style={{color: "#fff"}}>Loading...</p>}
+            </div> :
+              // <div>ShowUsers</div>:
+              <ShowUsers socket={matcher.socket} gameStartConfirmation={gameStartConfirmation} movies={props.movies} locations={props.locations} name={matcher.name}/> :
+              <div>Let's match</div>
+              // <GamePlay socket={this..socket} gameId={this.state.gameId} gameData={this.state.gameData} opponentLeft={this.opponentLeft} />
+        }
+      </div>
+      <ButtonGroup style={{position: "absolute", left: 0, bottom: 30, right: 0, marginLeft: '35%', marginRight: '35%'}}>
+          <Button onClick={() => {goBack()}}><FontAwesomeIcon icon={faChevronLeft}/> Back</Button>
+      </ButtonGroup>	
       
 		</div>
 	);

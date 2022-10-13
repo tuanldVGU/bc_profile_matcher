@@ -14,7 +14,7 @@ const AppRoutes = () => {
 					path='/'
 					element={
 						<ProtectedRoute>
-							<Home movies={movies} locations={locations}/>
+							<Home movies={movies} locations={locations} setMovies={setMovies} setLocations={setLocations}/>
 						</ProtectedRoute>
 					}
 				/>

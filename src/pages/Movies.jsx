@@ -4,10 +4,12 @@ import axios from 'axios';
 import PSI from '@openmined/psi.js';
 import { useNavigate } from "react-router-dom";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import VeridaClient from "../api/veridaClient";
 
 const { REACT_APP_MOVIES_API_URL } = process.env;
+
 function Movie(props) {
 
   const navigate = useNavigate();
@@ -35,6 +37,16 @@ function Movie(props) {
     if (unique & selected.length < numClientElements){
       setSelected([...selected, str])
     }
+  }
+
+  const save = async () => {
+    const db = await VeridaClient.context.openDatabase('test_db')
+    const item = await db.save({
+      movies: selected
+    })
+    // const items = await db.getMany()
+    console.log(item)
+
   }
 
   const submit = () => {
@@ -133,9 +145,10 @@ function Movie(props) {
             }
         </div> 
 
-        <ButtonGroup style={{position: "absolute", left: 0, bottom: 30, right: 0, marginLeft: '45%', marginRight: '45%'}}>
+        <ButtonGroup style={{position: "absolute", left: 0, bottom: 30, right: 0, marginLeft: '35%', marginRight: '35%'}}>
           <Button onClick={() => {navigate('/')}}><FontAwesomeIcon icon={faChevronLeft}/></Button>
           <Button onClick={() => {submit()}} disabled={disabledBtn()}>Submit</Button>
+          <Button onClick={() => {save()}} disabled={disabledBtn()}>Save to Verida</Button>
         </ButtonGroup>
 
         {/* <Button type="button" onClick={() => submit()} style={{width: "100%"}}>Submit</Button> */}

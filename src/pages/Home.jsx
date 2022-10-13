@@ -1,12 +1,22 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { BaseHeader } from "../components/";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTicket, faMapLocationDot, faCircleCheck, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import VeridaClient from "../api/veridaClient";
+
 const Home = (props) => {
 	const navigate = useNavigate();
+
+	useEffect(async () => {
+		const db = await VeridaClient.context.openDatabase('test_db')
+		const items = await db.getMany()
+		props.setMovies(items[0].movies)
+		// console.log(items[0])
+	}, []);
+
 	return (
 		<div>
 			<BaseHeader />

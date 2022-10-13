@@ -29,14 +29,12 @@ const ShowUsers = (props) => {
       //   data: [{name: 1}]
       // })
       props.socket.on('getOpponentsResponse', data => {
-        console.log(data)
         setUsers({
           data: data
         })
       });
 
       props.socket.on('requestMovies', async (data) => {
-        console.log(data)
         setRequests({
           data: [...requests.data, {
           ...data,
@@ -46,7 +44,6 @@ const ShowUsers = (props) => {
       })
 
       props.socket.on('requestLocations', async (data) => {
-        console.log(data)
         setRequests([...requests, {
           ...data,
           type: 'locations'
@@ -64,7 +61,6 @@ const ShowUsers = (props) => {
 
   useEffect(() => {
     props.socket.on('newOpponentAdded', data => {
-      console.log(getUserData())
       
       setUsers({
         data: [...getUserData(), data]
@@ -96,8 +92,6 @@ const ShowUsers = (props) => {
       type: type
     })
 
-    console.log(users.data[i])
-
     setResponses({
     [`${users.data[i].name}_movies`]: {
       name: users.data[i].name,
@@ -106,12 +100,9 @@ const ShowUsers = (props) => {
     } , ...responses})
 
     props.socket.on('resultMatching', async (serverResponse) => {
-      console.log(serverResponse)
       const { serializedServerResponse, serializedServerSetup } = serverResponse
       // const serializedServerResponse = Uint8Array.from(serverResponse.serializedServerResponse)
       // const serializedServerSetup = Uint8Array.from(serverResponse.serializedServerSetup)
-      console.log(serializedServerResponse)
-      console.log(serializedServerSetup)
     
       const deserializedServerResponse = psi.response.deserializeBinary(
         serializedServerResponse
@@ -146,73 +137,64 @@ const ShowUsers = (props) => {
       serializedServerSetup,
       type: type
     })
-    console.log({
-      senderName: props.name,
-      target: data.sender,
-      serializedServerResponse,
-      serializedServerSetup,
-      type: type
-    })
 
   }
 
   return (
-    <div>
-        <div style={{display: "grid", gridTemplateColumns: "50% 50%", color: '#fff'}}>
+    <div style={{display: "grid", gridTemplateColumns: "50% 50%", color: '#fff', height: "100%"}}>
+
+        <div className="user-box">
+          <p>Available users:</p>
+          <div style={{display: "flex", flexDirection: 'row', flexWrap: 'wrap'}}>
+            {
+              users.data.map((x,i) => (
+                <div key={`User-${i}`} className={`user-block ${selected == i ? 'user-selected' : ''}`} onClick={() => updateSelected(i)}>
+                  <span style={{marginRight: 10, marginTop: 3, fontSize: 25}}><FontAwesomeIcon icon={faUserSecret}></FontAwesomeIcon> {x.name}</span>
+                  <ButtonGroup>
+                    <Button onClick={() => send(i,"movies")}> <FontAwesomeIcon icon={faTicket}></FontAwesomeIcon> </Button>
+                    <Button onClick={() => send(i,"locations")}><FontAwesomeIcon icon={faMapLocationDot}></FontAwesomeIcon></Button>
+                  </ButtonGroup>
+                </div>
+              ))
+            }
+          </div>
+
+        </div>
+
+        <div style={{display: "grid", gridTemplateRows: "50% 50%"}}>
+          <div className="user-box">
+            <p>Requests for pairing</p>
+            <div style={{display: "flex", flexDirection: 'row', flexWrap: 'wrap'}}>
+            {
+              requests.data.map((x,i) => (
+                <div key={`Request-${i}`} className={`user-block`}>
+                  <span style={{marginRight: 10, marginTop: 3, fontSize: 25}}><FontAwesomeIcon icon={faUserSecret}></FontAwesomeIcon> {x.senderName}</span>
+                  <span>{x.type === 'movies' ? <FontAwesomeIcon icon={faTicket}></FontAwesomeIcon> : <FontAwesomeIcon icon={faMapLocationDot}></FontAwesomeIcon>}</span>
+                  <Button onClick={() => processRequest(x, x.type)}> <FontAwesomeIcon icon={faPaperPlane}></FontAwesomeIcon> </Button>
+                </div>
+              ))
+            }
+            </div>
+          </div>
 
           <div className="user-box">
-            <p>Available users:</p>
+            <p>Responses for pairing</p>
             <div style={{display: "flex", flexDirection: 'row', flexWrap: 'wrap'}}>
               {
-                users.data.map((x,i) => (
-                  <div key={`User-${i}`} className={`user-block ${selected == i ? 'user-selected' : ''}`} onClick={() => updateSelected(i)}>
-                    <span style={{marginRight: 10, marginTop: 3, fontSize: 25}}><FontAwesomeIcon icon={faUserSecret}></FontAwesomeIcon> {x.name}</span>
-                    <ButtonGroup>
-                      <Button onClick={() => send(i,"movies")}> <FontAwesomeIcon icon={faTicket}></FontAwesomeIcon> </Button>
-                      <Button onClick={() => send(i,"locations")}><FontAwesomeIcon icon={faMapLocationDot}></FontAwesomeIcon></Button>
-                    </ButtonGroup>
-                  </div>
-                ))
-              }
-            </div>
-
-          </div>
-
-          <div style={{display: "grid", gridTemplateRows: "50% 50%"}}>
-            <div className="user-box">
-              <p>Requests for pairing</p>
-              <div style={{display: "flex", flexDirection: 'row', flexWrap: 'wrap'}}>
-              {
-                requests.data.map((x,i) => (
+                Object.values(responses).map((x,i) => (
                   <div key={`Request-${i}`} className={`user-block`}>
-                    <span style={{marginRight: 10, marginTop: 3, fontSize: 25}}><FontAwesomeIcon icon={faUserSecret}></FontAwesomeIcon> {x.senderName}</span>
-                    <span>{x.type === 'movies' ? <FontAwesomeIcon icon={faTicket}></FontAwesomeIcon> : <FontAwesomeIcon icon={faMapLocationDot}></FontAwesomeIcon>}</span>
-                    <Button onClick={() => processRequest(x, x.type)}> <FontAwesomeIcon icon={faPaperPlane}></FontAwesomeIcon> </Button>
+                    <span style={{marginRight: 10, marginTop: 3, fontSize: 25}}><FontAwesomeIcon icon={faUserSecret}></FontAwesomeIcon> {x.name}</span>
+                    <span style={{marginRight: 10}}>{x.type === 'movies' ? <FontAwesomeIcon icon={faTicket}></FontAwesomeIcon> : <FontAwesomeIcon icon={faMapLocationDot}></FontAwesomeIcon>}</span>
+                    {x.match == null ? <Spinner size="sm" animation="grow" variant="success"/>: (<span style={{borderRadius: "50%", backgroundColor: '#fff', color: '#282c34', padding: "3px 8px"}}>{x.match}</span>)}
                   </div>
                 ))
               }
-              </div>
-            </div>
-
-            <div className="user-box">
-              <p>Responses for pairing</p>
-              <div style={{display: "flex", flexDirection: 'row', flexWrap: 'wrap'}}>
-                {
-                  Object.values(responses).map((x,i) => (
-                    <div key={`Request-${i}`} className={`user-block`}>
-                      <span style={{marginRight: 10, marginTop: 3, fontSize: 25}}><FontAwesomeIcon icon={faUserSecret}></FontAwesomeIcon> {x.name}</span>
-                      <span style={{marginRight: 10}}>{x.type === 'movies' ? <FontAwesomeIcon icon={faTicket}></FontAwesomeIcon> : <FontAwesomeIcon icon={faMapLocationDot}></FontAwesomeIcon>}</span>
-                      {x.match == null ? <Spinner size="sm" animation="grow" variant="success"/>: (<span style={{borderRadius: "50%", backgroundColor: '#fff', color: '#282c34', padding: "3px 8px"}}>{x.match}</span>)}
-                    </div>
-                  ))
-                }
-              </div>
             </div>
           </div>
+        </div>
 
-          
+        
 
-      </div>
     </div>
   )
 }
